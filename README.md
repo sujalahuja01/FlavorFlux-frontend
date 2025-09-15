@@ -1,1 +1,1 @@
-# FlavorFlux
+# FlavorFlux-frontend
