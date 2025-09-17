@@ -1,19 +1,26 @@
-import useAuthFormState from "@/hooks/useAuthFormState";
-import AuthFormLayout from "@/layout/AuthFormLayout";
-import React from "react";
+import RecipeRenderer from "@/components/RecipeRenderer";
+import { baseURL } from "@/utils/api";
+import { authRequest } from "@/utils/authRequest";
+import React, { useEffect, useState } from "react";
 
 const Favourites = () => {
-  const { form, status, runFlow } = useAuthFormState({
-    ingredients: "",
-    cuisine: "",
-  });
+  const [favourites, setFavourites] = useState([]);
+  useEffect(() => {
+    authRequest(`${baseURL}/recipes/favourite`, "GET").then((res) => {
+      if (res.success) setFavourites(res.data.message);
+    });
+  }, []);
+  if (favourites.length === 0) {
+    return <p>No favourites yet.</p>;
+  }
 
-  const { values, errorrs, setErrors, handleChange } = form;
-  const { message, setMessage, loading } = status;
-
-  const handleRecipeGeneration = async () => {};
-
-  return <AuthFormLayout></AuthFormLayout>;
+  return (
+    <div>
+      {favourites.map((favRecipe) => (
+        <RecipeRenderer key={favRecipe.rid} recipe={favRecipe} />
+      ))}
+    </div>
+  );
 };
 
 export default Favourites;

@@ -60,7 +60,12 @@ const Generate = () => {
       const res = await authRequest(`${baseURL}/recipes/save`, "POST", {
         message,
       });
-      setMessage(res.data.message);
+
+      if (res.success) {
+        setMessage(res.data.message);
+      } else {
+        setMessage(res.error);
+      }
     } catch {
       setMessage("Failed to save recipe");
     } finally {

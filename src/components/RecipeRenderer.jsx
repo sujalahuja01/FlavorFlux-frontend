@@ -36,9 +36,13 @@ const RecipeRenderer = ({ recipe }) => {
       )}
       {recipe.time && <p>Time: {recipe.time}</p>}
 
-      {recipe.yt_link && (
+      {recipe.youtube_link && (
         <p>
-          <a href={recipe.yt_link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={recipe.youtube_link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Watch on YouTube
           </a>
         </p>
