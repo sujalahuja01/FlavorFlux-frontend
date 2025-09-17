@@ -1,4 +1,4 @@
-import RecipeRenderer from "@/components/RecipeRenderer";
+import RecipeCard from "@/components/RecipeCard";
 import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import React, { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ const Favourites = () => {
   return (
     <div>
       {favourites.map((favRecipe) => (
-        <RecipeRenderer key={favRecipe.rid} recipe={favRecipe} />
+        <RecipeCard key={favRecipe.rid} recipe={favRecipe} />
       ))}
     </div>
   );

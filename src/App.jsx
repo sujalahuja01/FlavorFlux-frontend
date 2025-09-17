@@ -13,6 +13,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import DeleteUser from "./pages/auth/DeleteUser";
 import ChangePassword from "./pages/auth/ChangePassword";
 import Generate from "./pages/recipe/Generate";
+import RecipeRenderer from "./components/RecipeRenderer";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const App = () => {
     { path: "delete-account", element: <DeleteUser /> },
     { path: "change-password", element: <ChangePassword /> },
     { path: "generate", element: <Generate /> },
+    { path: "recipes/:id", element: <RecipeRenderer /> },
   ]);
   return (
     <>

@@ -1,7 +1,30 @@
-import React from "react";
+import { baseURL } from "@/utils/api";
+import { authRequest } from "@/utils/authRequest";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
-const RecipeRenderer = ({ recipe }) => {
-  if (!recipe) return null;
+const separator = (items, splitter, Element) => {
+  return items
+    .split(splitter)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((item, idx) => React.createElement(Element, { key: idx }, item));
+};
+
+const RecipeRenderer = () => {
+  const location = useLocation();
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState(location.state?.recipe || null);
+
+  // useEffect(() => {
+  //   if (!recipe){
+  //     authRequest(`${baseURL}/recipes/${id}`, "GET").then((res) => {
+  //       if(res.success) setRecipe(res.data.message)
+  //     })
+  //   }
+  // }, [id])
+
+  if (!recipe) return <p>Loading recipe...</p>;
 
   return (
     <div>
@@ -10,28 +33,14 @@ const RecipeRenderer = ({ recipe }) => {
       {recipe.ingredients && (
         <div>
           <h3>Ingredients</h3>
-          <ul>
-            {recipe.ingredients
-              .split(",")
-              .map((ing) => ing.trim())
-              .filter(Boolean)
-              .map((ing, idx) => (
-                <li key={idx}>{ing.trim()}</li>
-              ))}
-          </ul>
+          <ul>{separator(recipe.ingredients, ",", "li")}</ul>
         </div>
       )}
       {recipe.steps && (
         <div>
           <h3>Steps</h3>
 
-          {recipe.steps
-            .split("\n")
-            .map((step) => step.trim())
-            .filter(Boolean)
-            .map((step, idx) => (
-              <p key={idx}> {step}</p>
-            ))}
+          {separator(recipe.steps, "\n", "p")}
         </div>
       )}
       {recipe.time && <p>Time: {recipe.time}</p>}
