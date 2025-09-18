@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:5000";
+const baseURL = "https://flavorflux-backend.onrender.com";
 
 const fetchOptions = (method, body = null) => ({
   method,

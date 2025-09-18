@@ -27,7 +27,7 @@ const Login = () => {
           password: values.password,
         }),
       resetValues: { username: "", password: "" },
-      redirectTo: "/generate",
+      // redirectTo: "/generate",
     });
   };
 
