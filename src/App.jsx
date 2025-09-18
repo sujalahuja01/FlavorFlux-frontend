@@ -14,6 +14,7 @@ import DeleteUser from "./pages/auth/DeleteUser";
 import ChangePassword from "./pages/auth/ChangePassword";
 import Generate from "./pages/recipe/Generate";
 import RecipeRenderer from "./components/RecipeRenderer";
+import Favourites from "./pages/recipe/Favourites";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -25,6 +26,7 @@ const App = () => {
     { path: "delete-account", element: <DeleteUser /> },
     { path: "change-password", element: <ChangePassword /> },
     { path: "generate", element: <Generate /> },
+    { path: "favourites", element: <Favourites /> },
     { path: "recipes/:id", element: <RecipeRenderer /> },
   ]);
   return (

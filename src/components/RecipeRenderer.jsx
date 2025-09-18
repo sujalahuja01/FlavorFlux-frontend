@@ -11,10 +11,12 @@ const separator = (items, splitter, Element) => {
     .map((item, idx) => React.createElement(Element, { key: idx }, item));
 };
 
-const RecipeRenderer = () => {
+const RecipeRenderer = ({ recipe: propRecipe }) => {
   const location = useLocation();
-  const { id } = useParams();
-  const [recipe, setRecipe] = useState(location.state?.recipe || null);
+  // const { id } = useParams();
+  const [recipe, setRecipe] = useState(
+    propRecipe || location.state?.recipe || null
+  );
 
   // useEffect(() => {
   //   if (!recipe){
