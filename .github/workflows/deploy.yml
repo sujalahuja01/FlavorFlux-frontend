@@ -3,7 +3,7 @@ name: Deploy FlavorFlux Frontend to GitHub Pages
 on:
   push:
     branches:
-      - main # deploys whenever you push to main
+      - main # deploy whenever you push to main
 
 jobs:
   build-and-deploy:
@@ -33,5 +33,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
