@@ -4,7 +4,6 @@ import RecipeInputlayout from "@/layout/RecipeInputlayout";
 import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Generate = () => {
   const { form, status, runFlow } = useAuthFormState(
@@ -107,11 +106,6 @@ const Generate = () => {
       <button onClick={saveRecipe} disabled={loading}>
         {loading ? "Save" : "Save"}
       </button>
-      <br />
-      <p>
-        Change Password
-        <Link to="/favourites"> favourites</Link>
-      </p>
     </RecipeInputlayout>
   );
 };
