@@ -106,6 +106,11 @@ const Generate = () => {
       <button onClick={saveRecipe} disabled={loading}>
         {loading ? "Save" : "Save"}
       </button>
+      <br />
+      <p>
+        Change Password
+        <Link to="/favourites"> favourites</Link>
+      </p>
     </RecipeInputlayout>
   );
 };
