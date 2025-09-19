@@ -15,6 +15,7 @@ import ChangePassword from "./pages/auth/ChangePassword";
 import Generate from "./pages/recipe/Generate";
 import RecipeRenderer from "./components/RecipeRenderer";
 import Favourites from "./pages/recipe/Favourites";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -28,6 +29,7 @@ const App = () => {
     { path: "generate", element: <Generate /> },
     { path: "favourites", element: <Favourites /> },
     { path: "recipes/:id", element: <RecipeRenderer /> },
+    { path: "*", element: <NotFound /> },
   ]);
   return (
     <>
