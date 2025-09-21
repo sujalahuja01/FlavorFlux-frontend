@@ -6,7 +6,7 @@ export async function handleResponseFlow({
   resetValues = {},
   navigate,
   redirectTo,
-  delay = 2000,
+  delay = 1500,
   setLoading,
 }) {
   try {
@@ -16,7 +16,6 @@ export async function handleResponseFlow({
     if (result.success) {
       setMessage(result.data.message);
       setValues(resetValues);
-      console.log(result.data.message);
       setErrors({});
       if (navigate && redirectTo) {
         setTimeout(() => navigate(redirectTo), delay);

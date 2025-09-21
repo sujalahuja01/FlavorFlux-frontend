@@ -1,15 +1,17 @@
+import IngredientsCount from "@/components/IngredientsCount";
+import IngredientsList from "@/components/IngredientsList";
 import useAuthFormState from "@/hooks/useAuthFormState";
 import AuthInputLayout from "@/layout/AuthInputLayout";
 import RecipeInputlayout from "@/layout/RecipeInputlayout";
 import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Generate = () => {
   const { form, status, runFlow } = useAuthFormState(
     {
-      ingredients: "",
+      ingredients: [],
       cuisine: "",
     },
     { clearMessageOnChange: false }
@@ -17,12 +19,26 @@ const Generate = () => {
 
   const { values, errors, setErrors, handleChange } = form;
   const { message, setMessage, loading, setLoading } = status;
+  const [ingredientInput, setIngredientInput] = useState("");
+
+  const addIngredient = (e) => {
+    e.preventDefault();
+    if (!ingredientInput.trim()) return;
+
+    form.setValues({
+      ...values,
+      ingredients: [...values.ingredients, ingredientInput.trim()],
+    });
+
+    setIngredientInput("");
+    if (errors.ingredients) setErrors({ ...errors, ingredients: "" });
+  };
 
   const handleRecipeGeneration = async (e) => {
     e.preventDefault();
 
-    if (!values.ingredients) {
-      setErrors({ ingredients: "Type the ingredients " });
+    if (!values.ingredients.length) {
+      setErrors({ ingredients: "Type at least one ingredient" });
       return;
     }
 
@@ -30,11 +46,9 @@ const Generate = () => {
       requestFn: () =>
         authRequest(`${baseURL}/recipes/generate`, "POST", {
           ...values,
-          ingredients: values.ingredients
-            .split(",")
-            .map((i) => i.trim())
-            .filter(Boolean),
+          ingredients: values.ingredients,
         }),
+      resetValues: { ingredients: [], cuisine: "" },
       // redirectTo:""
     });
   };
@@ -83,11 +97,13 @@ const Generate = () => {
       <AuthInputLayout
         type="text"
         name="ingredients"
-        placeholder="Type your Ingredients"
-        value={values.ingredients || ""}
-        onChange={handleChange}
+        placeholder="Type an Ingredient"
+        value={ingredientInput}
+        onChange={(e) => setIngredientInput(e.target.value)}
         error={errors.ingredients}
       />
+      <button onClick={addIngredient}> Add ingredient</button>
+
       <AuthInputLayout
         type="text"
         name="cuisine"
@@ -96,9 +112,19 @@ const Generate = () => {
         onChange={handleChange}
         error={errors.cuisine}
       />
-      <button type="submit" disabled={loading}>
+
+      {!message && <IngredientsCount ingredients={values.ingredients} />}
+      {values.ingredients.length > 0 && (
+        <IngredientsList
+          ingredients={values.ingredients}
+          generate="submit"
+          loader={loading}
+        />
+      )}
+
+      {/* <button type="submit" disabled={loading}>
         {loading ? "Generating" : "generate"}
-      </button>
+      </button> */}
 
       <button onClick={refreshRecipe} disabled={loading}>
         {loading ? "Refreshing..." : "Refresh Recipe"}
