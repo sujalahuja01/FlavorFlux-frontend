@@ -13,32 +13,13 @@ const RecipeCard = ({
   const [longPressTriggered, setLongPressTriggered] = useState(false);
 
   const handleClick = () => {
-    console.log("handleClick fired", {
-      recipeId: recipe.rid,
-      selectionMode,
-      longPressTriggered,
-    });
     if (selectionMode) {
-      console.log("Selection mode: toggling selection");
       onSelect();
     } else if (!longPressTriggered) {
-      console.log("Navigating to recipe page");
-      navigate(`/recipes/${recipe.rid}`, { state: { recipe } });
+      navigate(`/recipes/${recipe.id}`, { state: { recipe } });
     }
     setLongPressTriggered(false);
   };
-  console.log(recipe.rid);
-
-  // const handleMouseDown = () => {
-  //   timeRef.current = setTimeout(() => {
-  //     onLongPress();
-  //     onSelect();
-  //   }, 700);
-  // };
-
-  // const handleMouseUp = () => {
-  //   clearTimeout(timeRef.current);
-  // };
 
   const startPress = () => {
     timerRef.current = setTimeout(() => {

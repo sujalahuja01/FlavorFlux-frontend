@@ -14,9 +14,9 @@ const Favourites = () => {
     });
   }, []);
 
-  const handleSelect = (rid) => {
+  const handleSelect = (id) => {
     setSelectedIds((prev) =>
-      prev.includes(rid) ? prev.filter((id) => id !== rid) : [...prev, rid]
+      prev.includes(id) ? prev.filter((rid) => rid !== id) : [...prev, id]
     );
   };
 
@@ -28,7 +28,7 @@ const Favourites = () => {
     });
 
     if (res.success) {
-      setFavourites(favourites.filter((r) => !selectedIds.includes(r.rid)));
+      setFavourites(favourites.filter((r) => !selectedIds.includes(r.id)));
       setSelectedIds([]);
       setSelectionMode(false);
     }
@@ -45,11 +45,11 @@ const Favourites = () => {
       )}
       {favourites.map((favRecipe) => (
         <RecipeCard
-          key={favRecipe.rid}
+          key={favRecipe.id}
           recipe={favRecipe}
           selectionMode={selectionMode}
-          selected={selectedIds.includes(favRecipe.rid)}
-          onSelect={() => handleSelect(favRecipe.rid)}
+          selected={selectedIds.includes(favRecipe.id)}
+          onSelect={() => handleSelect(favRecipe.id)}
           onLongPress={() => setSelectionMode(true)}
         />
       ))}
