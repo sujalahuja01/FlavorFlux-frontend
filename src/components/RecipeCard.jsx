@@ -1,15 +1,82 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({
+  recipe,
+  selectionMode,
+  selected,
+  onSelect,
+  onLongPress,
+}) => {
   const navigate = useNavigate();
+  const timerRef = useRef(null);
+  const [longPressTriggered, setLongPressTriggered] = useState(false);
 
   const handleClick = () => {
-    navigate(`/recipes/${recipe.rid}`, { state: { recipe } });
+    console.log("handleClick fired", {
+      recipeId: recipe.rid,
+      selectionMode,
+      longPressTriggered,
+    });
+    if (selectionMode) {
+      console.log("Selection mode: toggling selection");
+      onSelect();
+    } else if (!longPressTriggered) {
+      console.log("Navigating to recipe page");
+      navigate(`/recipes/${recipe.rid}`, { state: { recipe } });
+    }
+    setLongPressTriggered(false);
+  };
+  console.log(recipe.rid);
+
+  // const handleMouseDown = () => {
+  //   timeRef.current = setTimeout(() => {
+  //     onLongPress();
+  //     onSelect();
+  //   }, 700);
+  // };
+
+  // const handleMouseUp = () => {
+  //   clearTimeout(timeRef.current);
+  // };
+
+  const startPress = () => {
+    timerRef.current = setTimeout(() => {
+      onLongPress();
+      onSelect();
+      setLongPressTriggered(true); // prevent click after long press
+    }, 700);
+  };
+
+  const endPress = () => {
+    clearTimeout(timerRef.current);
   };
 
   return (
-    <div onClick={handleClick} style={{ cursor: "pointer" }}>
+    <div
+      onClick={handleClick}
+      onMouseDown={startPress}
+      onMouseUp={endPress}
+      onMouseLeave={endPress}
+      onTouchStart={startPress}
+      onTouchEnd={endPress}
+      style={{
+        cursor: "pointer",
+        border: selected ? "2px solid red" : "1px solid #ccc",
+        marginBottom: "1rem",
+        padding: "0.5rem",
+        position: "relative",
+      }}
+    >
+      {selectionMode && (
+        <input
+          type="checkbox"
+          checked={selected}
+          onChange={onSelect}
+          style={{ position: "absolute", top: 5, left: 5 }}
+        />
+      )}
+
       {recipe.title && <h2>{recipe.title}</h2>}
       {recipe.ingredients && (
         <div>
