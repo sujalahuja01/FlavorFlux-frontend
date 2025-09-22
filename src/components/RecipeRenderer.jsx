@@ -1,7 +1,5 @@
-import { baseURL } from "@/utils/api";
-import { authRequest } from "@/utils/authRequest";
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 const separator = (items, splitter, Element) => {
   return items
@@ -13,18 +11,7 @@ const separator = (items, splitter, Element) => {
 
 const RecipeRenderer = ({ recipe: propRecipe }) => {
   const location = useLocation();
-  // const { id } = useParams();
-  const [recipe, setRecipe] = useState(
-    propRecipe || location.state?.recipe || null
-  );
-
-  // useEffect(() => {
-  //   if (!recipe){
-  //     authRequest(`${baseURL}/recipes/${id}`, "GET").then((res) => {
-  //       if(res.success) setRecipe(res.data.message)
-  //     })
-  //   }
-  // }, [id])
+  const recipe = propRecipe || location.state?.recipe || null;
 
   if (!recipe) return <p>Loading recipe...</p>;
 

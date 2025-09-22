@@ -16,7 +16,7 @@ const RecipeCard = ({
     if (selectionMode) {
       onSelect();
     } else if (!longPressTriggered) {
-      navigate(`/recipes/${recipe.id}`, { state: { recipe } });
+      navigate(`/recipes`, { state: { recipe } });
     }
     setLongPressTriggered(false);
   };
