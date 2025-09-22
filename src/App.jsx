@@ -28,6 +28,7 @@ const App = () => {
     { path: "change-password", element: <ChangePassword /> },
     { path: "generate", element: <Generate /> },
     { path: "favourites", element: <Favourites /> },
+    { path: "recipes", element: <RecipeRenderer /> },
     { path: "*", element: <NotFound /> },
   ]);
   return (
