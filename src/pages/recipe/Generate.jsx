@@ -20,6 +20,7 @@ const Generate = () => {
   const { values, errors, setErrors, handleChange } = form;
   const { message, setMessage, loading, setLoading } = status;
   const [ingredientInput, setIngredientInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addIngredient = (e) => {
     e.preventDefault();
@@ -56,12 +57,22 @@ const Generate = () => {
   const refreshRecipe = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
+
+    const prevRecipe = message;
+    setMessage("Refreshing");
 
     try {
       const res = await authRequest(`${baseURL}/recipes/refresh`, "POST");
-      setMessage(res.data.message);
+      if (res.success) {
+        setMessage(res.data.message);
+      } else {
+        setMessage(prevRecipe);
+        setErrorMessage(res.error || "Failed to refersh recipe");
+      }
     } catch {
-      setMessage("Failed to refersh recipe");
+      setMessage(prevRecipe);
+      setErrorMessage("Unexpected error");
     } finally {
       setLoading(false);
     }
@@ -79,10 +90,10 @@ const Generate = () => {
       if (res.success) {
         setMessage(res.data.message);
       } else {
-        setMessage(res.error);
+        setErrorMessage(res.error || "Failed to save recipe");
       }
     } catch {
-      setMessage("Failed to save recipe");
+      setErrorMessage("Network error while saving recipe");
     } finally {
       setLoading(false);
     }
@@ -122,18 +133,20 @@ const Generate = () => {
         />
       )}
 
-      {/* <button type="submit" disabled={loading}>
-        {loading ? "Generating" : "generate"}
-      </button> */}
+      {message && !errorMessage && (
+        <div>
+          <button onClick={refreshRecipe} disabled={loading}>
+            {loading ? "Refreshing..." : "Refresh Recipe"}
+          </button>
 
-      <button onClick={refreshRecipe} disabled={loading}>
-        {loading ? "Refreshing..." : "Refresh Recipe"}
-      </button>
+          <button onClick={saveRecipe} disabled={loading}>
+            {loading ? "Save" : "Save"}
+          </button>
+        </div>
+      )}
 
-      <button onClick={saveRecipe} disabled={loading}>
-        {loading ? "Save" : "Save"}
-      </button>
-      <br />
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
       <p>
         Favourites
         <Link to="/favourites">Favourites Recipes</Link>
