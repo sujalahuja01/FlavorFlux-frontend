@@ -10,11 +10,12 @@ const AuthInputLayout = ({
 }) => {
   const [show, setShow] = useState(false);
 
-  const inputType = type === "password" && show ? "text" : type;
+  const isPassword = type === "password";
+  const inputType = isPassword && show ? "text" : type;
   const errorMessage = Array.isArray(error) ? error.join(" ") : error;
 
   return (
-    <div>
+    <div className="mb-2 w-80">
       <input
         type={inputType}
         name={name}
@@ -22,9 +23,16 @@ const AuthInputLayout = ({
         placeholder={placeholder}
         onChange={onChange}
         error={error}
+        className={` border py-4.5 px-4.5 w-full rounded-4xl ${
+          isPassword ? "pr-10" : ""
+        }`}
       />
       {type === "password" && (
-        <button type="button" onClick={() => setShow((prev) => !prev)}>
+        <button
+          type="button"
+          onClick={() => setShow((prev) => !prev)}
+          className={"absolute right-3 top-1/2 -translate-y-1/2 text-lg"}
+        >
           {show ? "🙈" : "👁️"}
         </button>
       )}
