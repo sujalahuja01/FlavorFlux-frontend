@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { baseURL } from "@/utils/api";
 import AuthFormLayout from "@/layout/AuthFormLayout";
-import AuthInputLayout from "@/layout/AuthInputLayout";
+import AuthInputLayout, {
+  AuthPasswordInputLayout,
+} from "@/layout/AuthInputLayout";
 import { authRequest } from "@/utils/authRequest";
 import { runValidation } from "@/utils/formUtils";
 import useAuthFormState from "@/hooks/useAuthFormState";
@@ -54,7 +56,7 @@ const Signup = () => {
         error={errors.email}
       />
 
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="password"
         value={values.password}
