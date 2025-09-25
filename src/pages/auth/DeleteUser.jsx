@@ -2,7 +2,9 @@ import AuthFormLayout from "@/layout/AuthFormLayout";
 import { baseURL } from "@/utils/api";
 import React from "react";
 import { authRequest } from "@/utils/authRequest";
-import AuthInputLayout from "@/layout/AuthInputLayout";
+import AuthInputLayout, {
+  AuthPasswordInputLayout,
+} from "@/layout/AuthInputLayout";
 import { runValidation } from "@/utils/formUtils";
 import useAuthFormState from "@/hooks/useAuthFormState";
 
@@ -32,7 +34,7 @@ const DeleteUser = () => {
       message={message}
       title="Delete Account"
     >
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="password"
         value={values.password}

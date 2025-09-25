@@ -1,6 +1,8 @@
 import useAuthFormState from "@/hooks/useAuthFormState";
 import AuthFormLayout from "@/layout/AuthFormLayout";
-import AuthInputLayout from "@/layout/AuthInputLayout";
+import AuthInputLayout, {
+  AuthPasswordInputLayout,
+} from "@/layout/AuthInputLayout";
 import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import { runValidation } from "@/utils/formUtils";
@@ -37,7 +39,7 @@ const ResetPassword = () => {
       onSubmit={handlePassReset}
       message={message}
     >
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="password"
         placeholder="New Password"
@@ -46,7 +48,7 @@ const ResetPassword = () => {
         error={errors.password}
       />
 
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="confirmPassword"
         placeholder="Confirm Password"

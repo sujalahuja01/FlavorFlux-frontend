@@ -1,10 +1,12 @@
 import useAuthFormState from "@/hooks/useAuthFormState";
 import AuthFormLayout from "@/layout/AuthFormLayout";
-import AuthInputLayout from "@/layout/AuthInputLayout";
+import AuthInputLayout, {
+  AuthPasswordInputLayout,
+} from "@/layout/AuthInputLayout";
 import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import { runValidation } from "@/utils/formUtils";
-import { handleInputChange } from "@/utils/validate";
+
 import React, { useEffect, useState } from "react";
 
 const ChangePassword = () => {
@@ -48,7 +50,7 @@ const ChangePassword = () => {
       message={message}
     >
       {!user.google_login && (
-        <AuthInputLayout
+        <AuthPasswordInputLayout
           type="password"
           name="currentPassword"
           placeholder="Current Password"
@@ -58,7 +60,7 @@ const ChangePassword = () => {
         />
       )}
 
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="password"
         placeholder="New Password"
@@ -66,8 +68,7 @@ const ChangePassword = () => {
         onChange={handleChange}
         error={errors.password}
       />
-
-      <AuthInputLayout
+      <AuthPasswordInputLayout
         type="password"
         name="confirmPassword"
         placeholder="Confirm Password"
@@ -75,7 +76,6 @@ const ChangePassword = () => {
         onChange={handleChange}
         error={errors.confirmPassword}
       />
-
       <button type="submit" disabled={loading}>
         {loading ? "Changing... " : "change Password"}
       </button>
