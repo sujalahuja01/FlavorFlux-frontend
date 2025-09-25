@@ -16,10 +16,11 @@ import Generate from "./pages/recipe/Generate";
 import RecipeRenderer from "./components/RecipeRenderer";
 import Favourites from "./pages/recipe/Favourites";
 import NotFound from "./components/NotFound";
+import Home from "./pages/auth/Home";
 
 const App = () => {
   const router = createBrowserRouter([
-    { path: "/", element: <Signup /> },
+    { path: "/", element: <Home /> },
     { path: "login", element: <Login /> },
     { path: "signup", element: <Signup /> },
     { path: "forgot-password", element: <ForgotPassword /> },
