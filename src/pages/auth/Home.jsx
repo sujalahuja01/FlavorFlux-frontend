@@ -11,9 +11,9 @@ const Home = () => {
     >
       <div className="absolute inset-0 bg-cover bg-center bg-[url('/images/bg-1.png')]"></div>
       <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-      <div className="absolute z-10 text-white top-16  flex justify-center">
+      <div className="absolute z-10 text-white top-16  flex justify-center items-center">
         <span>
-          <i class="fa-solid fa-star mt-1.5"></i>
+          <i className="fa-solid fa-star "></i>
         </span>
         <h1 className="text-xl font-semibold ml-2">
           Your hunger, our algorithm
@@ -31,7 +31,7 @@ const Home = () => {
           <div className="flex justify-center">
             <span className="flex items-center gap-4">
               <span className="font-bold text-lg">Start cooking</span>
-              <i class="fa-solid fa-arrow-right mt-0.5  "></i>
+              <i className="fa-solid fa-arrow-right mt-0.5  "></i>
             </span>
           </div>
         </button>
