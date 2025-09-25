@@ -1,6 +1,8 @@
 import useAuthFormState from "@/hooks/useAuthFormState";
 import AuthFormLayout from "@/layout/AuthFormLayout";
-import AuthInputLayout from "@/layout/AuthInputLayout";
+import AuthInputLayout, {
+  AuthPasswordInputLayout,
+} from "@/layout/AuthInputLayout";
 import { baseURL, fetchOptions } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import { runValidation } from "@/utils/formUtils";
@@ -65,7 +67,7 @@ const Login = () => {
           error={errors.username || errors.identifier}
         />
 
-        <AuthInputLayout
+        <AuthPasswordInputLayout
           type="password"
           name="password"
           value={values.password}

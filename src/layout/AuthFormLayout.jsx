@@ -2,17 +2,22 @@ import React from "react";
 
 const AuthFormLayout = ({ title, onSubmit, children, message }) => {
   return (
-    <div className=" flex items-center justify-center h-screen">
-      <form
-        onSubmit={onSubmit}
-        className="flex flex-col gap-2 border border-gray-400 p-5 rounded-2xl"
-      >
-        <h2 className="text-xl font-bold">{title}</h2>
-
-        {children}
-
-        {message && <div className="mt-2 text-sm">{message}</div>}
-      </form>
+    <div
+      className="relative w-full flex flex-col justify-center items-center "
+      style={{ height: "100dvh" }}
+    >
+      <div className="absolute top-38 ">
+        <form onSubmit={onSubmit} className="flex flex-col gap-2">
+          <div className="flex flex-col justify-center items-center h-16.5 w-60">
+            <h2 className="h-8 text-xl font-bold mb-2">{title}</h2>
+            <p className="text-gray-400 ">Please enter your account here </p>
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            {children}
+          </div>
+          <div>{message && <div className="mt-2 text-sm">{message}</div>}</div>
+        </form>
+      </div>
     </div>
   );
 };
