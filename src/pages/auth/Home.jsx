@@ -26,7 +26,7 @@ const Home = () => {
         </div>
         <button
           className="bg-[#E23E3E] w-52 h-14 rounded-xl"
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/login")}
         >
           <div className="flex justify-center">
             <span className="flex items-center gap-4">

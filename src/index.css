@@ -3,3 +3,7 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+
+.btn {
+  @apply border-none py-4 w-full rounded-4xl border-gray-400 text-white  font-bold;
+}

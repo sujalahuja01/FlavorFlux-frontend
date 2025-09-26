@@ -11,7 +11,7 @@ const AuthInputLayout = ({
   const errorMessage = Array.isArray(error) ? error.join(" ") : error;
 
   return (
-    <div className="mb-2 w-80 ">
+    <div className="w-80 ">
       <div className="relative">
         <span className="absolute left-3 top-1/2 -translate-y-1/2">
           <i class="fa-solid fa-envelope "></i>
@@ -23,7 +23,7 @@ const AuthInputLayout = ({
           placeholder={placeholder}
           onChange={onChange}
           error={error}
-          className="border py-4.5 px-10 w-full rounded-4xl border-gray-400"
+          className="border py-4.5 px-10 w-full rounded-4xl border-gray-400 focus:border-2 focus:border-[#1FCC79] focus:outline-none "
         />
       </div>
       {error && (
@@ -60,15 +60,19 @@ export const AuthPasswordInputLayout = ({
           placeholder={placeholder}
           onChange={onChange}
           error={error}
-          className="border py-4.5 px-10 w-full rounded-4xl border-gray-400"
+          className="border py-4.5 px-10 w-full rounded-4xl border-gray-400 focus:border-2 focus:border-[#1FCC79] focus:outline-none "
         />
 
         <button
           type="button"
           onClick={() => setShow((prev) => !prev)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-lg"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-lg mr-1"
         >
-          {show ? "🙈" : "👁️"}
+          {show ? (
+            <i class="fa-solid fa-eye-slash"></i>
+          ) : (
+            <i class="fa-solid fa-eye"></i>
+          )}
         </button>
       </div>
       {error && (

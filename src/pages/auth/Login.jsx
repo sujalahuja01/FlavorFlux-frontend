@@ -60,65 +60,68 @@ const Login = () => {
       <AuthFormLayout
         onSubmit={handleLogin}
         title="Welcome Back!"
+        subTitle="Please enter your details here"
         message={message}
       >
-        <div className="w-80 flex flex-col items-center ">
-          <AuthInputLayout
-            type="text"
-            name="username"
-            value={values.username}
-            placeholder="Email or Username"
-            onChange={handleChange}
-            error={errors.username || errors.identifier}
-          />
+        <AuthInputLayout
+          type="text"
+          name="username"
+          value={values.username}
+          placeholder="Email or Username"
+          onChange={handleChange}
+          error={errors.username || errors.identifier}
+        />
 
-          <AuthPasswordInputLayout
-            type="password"
-            name="password"
-            value={values.password}
-            placeholder="Password"
-            onChange={handleChange}
-            error={errors.password}
-          />
-          <div className="flex w-full">
-            <Link
-              to="/forgot-password"
-              className="ml-auto text-sm hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
-
-          <button
-            className="border py-4.5 px-10 w-full rounded-4xl border-gray-400 mt-14"
-            type="submit"
-            disabled={loading}
+        <AuthPasswordInputLayout
+          type="password"
+          name="password"
+          value={values.password}
+          placeholder="Password"
+          onChange={handleChange}
+          error={errors.password}
+        />
+        <div className="flex w-full">
+          <Link
+            to="/forgot-password"
+            className="ml-auto text-sm hover:underline text-gray-600"
           >
-            {loading ? "Logging In..." : "Login"}
-          </button>
-          <p className="flex justify-center my-3">Or continue with </p>
-
-          <button className="border py-4.5 px-10 w-full rounded-4xl border-gray-400 mb-7">
-            <span className="mr-2">
-              <i class="fa-brands fa-google"></i>
-            </span>
-            Google
-          </button>
-
-          <p>
-            Not Registered Yet?
-            <Link to="/signup"> Register Now</Link>
-          </p>
+            Forgot password?
+          </Link>
         </div>
-        {/* <p>
+
+        {message && (
+          <div className="text-sm text-center text-red-600 w-full">
+            {message}
+          </div>
+        )}
+
+        <button className="btn bg-[#1FCC79]" type="submit" disabled={loading}>
+          {loading ? "Logging In..." : "Login"}
+        </button>
+        <p className="flex justify-center text-gray-500">Or continue with </p>
+
+        <button className="btn mb-2 bg-[#FF5842]">
+          <span className="mr-2">
+            <i class="fa-brands fa-google"></i>
+          </span>
+          Google
+        </button>
+
+        <div>
+          <span className="mr-2">Not Registered Yet?</span>
+          <Link to="/signup" className=" text-[#1bb169] ">
+            Sign Up
+          </Link>
+        </div>
+      </AuthFormLayout>
+      {/* <p>s
           Delete Account
           <Link to="/delete-account"> Delete Account</Link>
         </p>
         <p>
           Change Password
           <Link to="/change-password"> Change Password</Link> */}
-        {/* </p> */}
-      </AuthFormLayout>
+      {/* </p> */}
       {/* <button type="button" onClick={logout}>
         Logout
       </button>

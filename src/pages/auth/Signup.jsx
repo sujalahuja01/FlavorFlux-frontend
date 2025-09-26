@@ -37,7 +37,12 @@ const Signup = () => {
   };
 
   return (
-    <AuthFormLayout title="Signup" onSubmit={handleSignup} message={message}>
+    <AuthFormLayout
+      title="Welcome!"
+      onSubmit={handleSignup}
+      message={message}
+      subTitle="Please enter your details here"
+    >
       <AuthInputLayout
         type="text"
         name="username"
@@ -65,15 +70,27 @@ const Signup = () => {
         error={errors.password}
       />
 
-      <Link to="/forgot-password">Forgot Password</Link>
-
-      <button type="submit" disabled={loading}>
+      <button
+        className="btn mt-3 bg-[#1FCC79]"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? "Signing Up..." : "Signup"}
       </button>
-      <p>
-        Already Registered?
-        <Link to="/login"> Login Now</Link>
-      </p>
+      <p className="flex justify-center text-gray-500 ">Or continue with </p>
+
+      <button className="btn mb-4 bg-[#FF5842]">
+        <span className="mr-2">
+          <i class="fa-brands fa-google"></i>
+        </span>
+        Google
+      </button>
+      <div>
+        <span className="mr-2">Already Registered?</span>
+        <Link className="text-[#1bb169] " to="/login">
+          Login Now
+        </Link>
+      </div>
     </AuthFormLayout>
   );
 };
