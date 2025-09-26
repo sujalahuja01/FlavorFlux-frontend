@@ -55,6 +55,10 @@ const Login = () => {
     }
   };
 
+  const googleAuth = () => {
+    window.location.href = `${baseURL}/auth/google-login`;
+  };
+
   return (
     <>
       <AuthFormLayout
@@ -100,9 +104,9 @@ const Login = () => {
         </button>
         <p className="flex justify-center text-gray-500">Or continue with </p>
 
-        <button className="btn mb-2 bg-[#FF5842]">
+        <button onClick={googleAuth} className="btn mb-2 bg-[#FF5842]">
           <span className="mr-2">
-            <i class="fa-brands fa-google"></i>
+            <i className="fa-brands fa-google"></i>
           </span>
           Google
         </button>
