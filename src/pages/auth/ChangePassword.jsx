@@ -31,7 +31,7 @@ const ChangePassword = () => {
 
     const formType = user.google_login ? "resetPassword" : "changePassword";
 
-    if (!runValidation(values, formType, setErrors, setMessage)) return;
+    // if (!runValidation(values, formType, setErrors, setMessage)) return;
 
     await runFlow({
       requestFn: () =>
@@ -76,7 +76,11 @@ const ChangePassword = () => {
         onChange={handleChange}
         error={errors.confirmPassword}
       />
-      <button type="submit" disabled={loading}>
+      <button
+        className="btn mt-4 bg-[#FF5842]"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? "Changing... " : "change Password"}
       </button>
     </AuthFormLayout>

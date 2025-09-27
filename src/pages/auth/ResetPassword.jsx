@@ -57,7 +57,11 @@ const ResetPassword = () => {
         error={errors.confirmPassword}
       />
 
-      <button type="submit" disabled={loading}>
+      <button
+        className="btn mt-4 bg-[#FF5842]"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? "Resetting..." : "Reset Password"}
       </button>
     </AuthFormLayout>

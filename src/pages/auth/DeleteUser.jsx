@@ -43,7 +43,11 @@ const DeleteUser = () => {
         error={errors.password}
       />
 
-      <button type="submit" disabled={loading}>
+      <button
+        className="btn mt-4 bg-[#FF5842]"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? "Deleting Account..." : "Delete Account"}
       </button>
     </AuthFormLayout>

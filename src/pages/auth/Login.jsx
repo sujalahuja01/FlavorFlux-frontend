@@ -117,6 +117,9 @@ const Login = () => {
             Sign Up
           </Link>
         </div>
+        <button className="btn bg-amber-500" type="button" onClick={logout}>
+          Logout
+        </button>
       </AuthFormLayout>
       {/* <p>s
           Delete Account
@@ -126,10 +129,8 @@ const Login = () => {
           Change Password
           <Link to="/change-password"> Change Password</Link> */}
       {/* </p> */}
-      {/* <button type="button" onClick={logout}>
-        Logout
-      </button>
-      <button type="button" onClick={user}>
+
+      {/* <button type="button" onClick={user}>
         User
       </button> */}
     </>
