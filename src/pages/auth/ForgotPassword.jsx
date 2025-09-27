@@ -5,6 +5,7 @@ import { baseURL } from "@/utils/api";
 import { authRequest } from "@/utils/authRequest";
 import { runValidation } from "@/utils/formUtils";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const { form, status, runFlow } = useAuthFormState({
@@ -32,6 +33,7 @@ const ForgotPassword = () => {
       onSubmit={handleForgotPass}
       title="Forgot Password"
       message={message}
+      subTitle="Enter your email and we'll send you a link to get back into your account"
     >
       <AuthInputLayout
         type="email"
@@ -42,9 +44,22 @@ const ForgotPassword = () => {
         error={errors.email}
       />
 
-      <button type="submit" disabled={loading}>
+      <button
+        className="btn bg-[#1FCC79] mt-6"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? "Sending reset link..." : "Send Reset Email"}
       </button>
+      <p className="flex justify-center text-gray-500">OR</p>
+
+      <Link to="/signup" className="hover:underline ">
+        Create new account
+      </Link>
+
+      <Link to="/login" className="text-center btn bg-[#FF5842] mt-6">
+        Back to login
+      </Link>
     </AuthFormLayout>
   );
 };

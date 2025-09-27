@@ -9,7 +9,8 @@ const AuthFormLayout = ({ title, onSubmit, children, subTitle }) => {
       <form onSubmit={onSubmit} className="flex flex-col items-center">
         <div className="flex flex-col justify-center items-center mb-6">
           <h2 className="text-2xl font-bold mb-2">{title}</h2>
-          <p className="text-gray-500 ">{subTitle} </p>
+
+          <p className="text-gray-500 text-center w-80 ">{subTitle} </p>
         </div>
         <div className=" w-80 flex flex-col justify-center items-center gap-3">
           {children}
