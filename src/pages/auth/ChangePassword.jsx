@@ -76,6 +76,10 @@ const ChangePassword = () => {
         onChange={handleChange}
         error={errors.confirmPassword}
       />
+      {message && (
+        <div className="text-sm text-center text-red-600 w-full">{message}</div>
+      )}
+
       <button
         className="btn mt-4 bg-[#FF5842]"
         type="submit"

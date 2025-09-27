@@ -19,7 +19,7 @@ const DeleteUser = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    if (!runValidation(values, "delete", setErrors, setMessage)) return;
+    // if (!runValidation(values, "delete", setErrors, setMessage)) return;
 
     await runFlow({
       requestFn: () => authRequest(`${baseURL}/auth/delete`, "DELETE", values),
@@ -42,6 +42,10 @@ const DeleteUser = () => {
         onChange={handleChange}
         error={errors.password}
       />
+
+      {message && (
+        <div className="text-sm text-center text-red-600 w-full">{message}</div>
+      )}
 
       <button
         className="btn mt-4 bg-[#FF5842]"

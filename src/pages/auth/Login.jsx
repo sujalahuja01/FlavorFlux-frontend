@@ -120,8 +120,11 @@ const Login = () => {
         <button className="btn bg-amber-500" type="button" onClick={logout}>
           Logout
         </button>
+        <button className="btn bg-amber-950" type="button" onClick={user}>
+          User
+        </button>
       </AuthFormLayout>
-      {/* <p>s
+      {/* <p>s      
           Delete Account
           <Link to="/delete-account"> Delete Account</Link>
         </p>
@@ -129,10 +132,6 @@ const Login = () => {
           Change Password
           <Link to="/change-password"> Change Password</Link> */}
       {/* </p> */}
-
-      {/* <button type="button" onClick={user}>
-        User
-      </button> */}
     </>
   );
 };

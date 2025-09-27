@@ -43,6 +43,9 @@ const ForgotPassword = () => {
         onChange={handleChange}
         error={errors.email}
       />
+      {message && (
+        <div className="text-sm text-center text-red-600 w-full">{message}</div>
+      )}
 
       <button
         className="btn bg-[#1FCC79] mt-6"
