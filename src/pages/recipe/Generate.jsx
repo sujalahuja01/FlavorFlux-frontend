@@ -113,7 +113,10 @@ const Generate = () => {
         onChange={(e) => setIngredientInput(e.target.value)}
         error={errors.ingredients}
       />
-      <button onClick={addIngredient}> Add ingredient</button>
+      <button className="btn bg-amber-500" onClick={addIngredient}>
+        {" "}
+        Add ingredient
+      </button>
 
       <AuthInputLayout
         type="text"
@@ -135,11 +138,19 @@ const Generate = () => {
 
       {message && !errorMessage && (
         <div>
-          <button onClick={refreshRecipe} disabled={loading}>
+          <button
+            className="btn bg-emerald-700"
+            onClick={refreshRecipe}
+            disabled={loading}
+          >
             {loading ? "Refreshing..." : "Refresh Recipe"}
           </button>
 
-          <button onClick={saveRecipe} disabled={loading}>
+          <button
+            className="btn bg-fuchsia-600"
+            onClick={saveRecipe}
+            disabled={loading}
+          >
             {loading ? "Save" : "Save"}
           </button>
         </div>
@@ -147,10 +158,9 @@ const Generate = () => {
 
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-      <p>
-        Favourites
-        <Link to="/favourites">Favourites Recipes</Link>
-      </p>
+      <Link className="btn bg-purple-700 text-center" to="/favourites">
+        Favourites Recipes
+      </Link>
     </RecipeInputlayout>
   );
 };

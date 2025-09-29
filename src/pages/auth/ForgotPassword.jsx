@@ -33,7 +33,17 @@ const ForgotPassword = () => {
       onSubmit={handleForgotPass}
       title="Forgot Password"
       message={message}
-      subTitle="Enter your email and we'll send you a link to get back into your account"
+      subTitle={
+        <div className="text-center">
+          <p>
+            Enter your email and we'll send you a link to get back into your
+            account
+          </p>
+          <p className="mt-2 font-medium text-gray-600">
+            ⚠️ Don’t forget to check the Spam folder!
+          </p>
+        </div>
+      }
     >
       <AuthInputLayout
         type="email"

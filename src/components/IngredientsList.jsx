@@ -15,7 +15,7 @@ const IngredientsList = ({ ingredients, generate, loader }) => {
             <h3>ready for a recipe?</h3>
             <p>Generate a recipe from your ingredients.</p>
           </div>
-          <button type={generate} disabled={loader}>
+          <button className="btn bg-blue-700" type={generate} disabled={loader}>
             {loader ? "Getting..." : "Get recipe"}
           </button>
         </div>

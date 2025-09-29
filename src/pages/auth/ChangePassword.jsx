@@ -31,7 +31,7 @@ const ChangePassword = () => {
 
     const formType = user.google_login ? "resetPassword" : "changePassword";
 
-    // if (!runValidation(values, formType, setErrors, setMessage)) return;
+    if (!runValidation(values, formType, setErrors, setMessage)) return;
 
     await runFlow({
       requestFn: () =>
