@@ -132,9 +132,22 @@ const RecipeRenderer = ({ recipe: propRecipe }) => {
         {steps.length > 0 && (
           <div>
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">Steps</h3>
-            <div className="relative border-l border-gray-300 ">
+            <div
+              className="relative border-l border-gray-300 opacity-0 animate-fade-in-slide-right"
+              style={{
+                animationDelay: "0.1s",
+                animationFillMode: "forwards",
+              }}
+            >
               {steps.map((step, idx) => (
-                <div key={idx} className="relative mb-8  ">
+                <div
+                  key={idx}
+                  className="relative mb-8 opacity-0 animate-fade-in-slide-right cursor-pointer "
+                  style={{
+                    animationDelay: `${0.4 + idx * 0.12}s`,
+                    animationFillMode: "forwards",
+                  }}
+                >
                   <div className="absolute -left-3.5  flex justify-center items-center w-7 h-7 rounded-full bg-black">
                     <div className="flex justify-center items-center w-6 h-6 rounded-full bg-white">
                       <div className="flex justify-center items-center w-5 h-5 rounded-full bg-black text-white text-xs font-bold">
