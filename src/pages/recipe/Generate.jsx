@@ -50,7 +50,6 @@ const Generate = () => {
           ingredients: values.ingredients,
         }),
       resetValues: { ingredients: [], cuisine: "" },
-      // redirectTo:""
     });
   };
 
@@ -100,68 +99,77 @@ const Generate = () => {
   };
 
   return (
-    <RecipeInputlayout
-      title="Generate Recipe"
-      handler={handleRecipeGeneration}
-      message={message}
-    >
-      <AuthInputLayout
-        type="text"
-        name="ingredients"
-        placeholder="Type an Ingredient"
-        value={ingredientInput}
-        onChange={(e) => setIngredientInput(e.target.value)}
-        error={errors.ingredients}
-      />
-      <button className="btn bg-amber-500" onClick={addIngredient}>
-        {" "}
-        Add ingredient
-      </button>
+    // <RecipeInputlayout
+    //   title="Generate Recipe"
+    //   onSubmit={handleRecipeGeneration}
+    //   message={message}
+    // >
+    //   <AuthInputLayout
+    //     type="text"
+    //     name="ingredients"
+    //     placeholder="Type an Ingredient"
+    //     value={ingredientInput}
+    //     onChange={(e) => setIngredientInput(e.target.value)}
+    //     error={errors.ingredients}
+    //   />
+    //   <button className="btn bg-amber-500" onClick={addIngredient}>
+    //     {" "}
+    //     Add ingredient
+    //   </button>
 
-      <AuthInputLayout
-        type="text"
-        name="cuisine"
-        placeholder="Cuisine"
-        value={values.cuisine || ""}
-        onChange={handleChange}
-        error={errors.cuisine}
-      />
+    //   <AuthInputLayout
+    //     type="text"
+    //     name="cuisine"
+    //     placeholder="Cuisine"
+    //     value={values.cuisine || ""}
+    //     onChange={handleChange}
+    //     error={errors.cuisine}
+    //   />
 
-      {!message && <IngredientsCount ingredients={values.ingredients} />}
-      {values.ingredients.length > 0 && (
-        <IngredientsList
-          ingredients={values.ingredients}
-          generate="submit"
-          loader={loading}
-        />
-      )}
+    //   {!message && <IngredientsCount ingredients={values.ingredients} />}
+    //   {values.ingredients.length > 0 && (
+    //     <IngredientsList
+    //       ingredients={values.ingredients}
+    //       generate="submit"
+    //       loader={loading}
+    //     />
+    //   )}
 
-      {message && !errorMessage && (
-        <div>
-          <button
-            className="btn bg-emerald-700"
-            onClick={refreshRecipe}
-            disabled={loading}
-          >
-            {loading ? "Refreshing..." : "Refresh Recipe"}
-          </button>
+    //   {message && !errorMessage && (
+    //     <div>
+    //       <button
+    //         className="btn bg-emerald-700"
+    //         onClick={refreshRecipe}
+    //         disabled={loading}
+    //       >
+    //         {loading ? "Refreshing..." : "Refresh Recipe"}
+    //       </button>
 
-          <button
-            className="btn bg-fuchsia-600"
-            onClick={saveRecipe}
-            disabled={loading}
-          >
-            {loading ? "Save" : "Save"}
-          </button>
+    //       <button
+    //         className="btn bg-fuchsia-600"
+    //         onClick={saveRecipe}
+    //         disabled={loading}
+    //       >
+    //         {loading ? "Save" : "Save"}
+    //       </button>
+    //     </div>
+    //   )}
+
+    //   {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
+    //   <Link className="btn bg-purple-700 text-center" to="/favourites">
+    //     Favourites Recipes
+    //   </Link>
+    // </RecipeInputlayout>
+    <div className="min-w-dvh w-full bg-gray-50 py-10 px-4 sm:px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 flex justify-center items-center">
+          <h1 className="text-3xl textt-gray-600 max-w-md mx-auto">
+            Generate Your Recipe
+          </h1>
         </div>
-      )}
-
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-      <Link className="btn bg-purple-700 text-center" to="/favourites">
-        Favourites Recipes
-      </Link>
-    </RecipeInputlayout>
+      </div>
+    </div>
   );
 };
 export default Generate;
