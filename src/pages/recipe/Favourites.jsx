@@ -35,24 +35,43 @@ const Favourites = () => {
   };
 
   if (favourites.length === 0) {
-    return <p>No favourites yet.</p>;
+    return (
+      <div className="min-h-dvh flex flex-col item-center justify-center bg-gray-50 text-gray-600">
+        <p className="text-lg font-medium">No favourites yet.</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      {selectionMode && (
-        <button onClick={handleDelete}> Delete selected</button>
-      )}
-      {favourites.map((favRecipe) => (
-        <RecipeCard
-          key={favRecipe.id}
-          recipe={favRecipe}
-          selectionMode={selectionMode}
-          selected={selectedIds.includes(favRecipe.id)}
-          onSelect={() => handleSelect(favRecipe.id)}
-          onLongPress={() => setSelectionMode(true)}
-        />
-      ))}
+    <div className="min-h-dvh bg-gray-50 py-10 px-4 sm:px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-gray-900">
+            💖 Your Favourite Recipes
+          </h1>
+          {selectionMode && (
+            <button
+              onClick={handleDelete}
+              className="roounded-xl bg-red-600 ox-5 py-2 text-white font-semibold hover:bg-red-700 transition shadow-md "
+            >
+              {" "}
+              🗑️ Delete Selected
+            </button>
+          )}
+        </div>
+        <div className="flex flex-col gap-6">
+          {favourites.map((favRecipe) => (
+            <RecipeCard
+              key={favRecipe.id}
+              recipe={favRecipe}
+              selectionMode={selectionMode}
+              selected={selectedIds.includes(favRecipe.id)}
+              onSelect={() => handleSelect(favRecipe.id)}
+              onLongPress={() => setSelectionMode(true)}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

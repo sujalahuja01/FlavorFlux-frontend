@@ -25,7 +25,7 @@ const RecipeCard = ({
     timerRef.current = setTimeout(() => {
       onLongPress();
       onSelect();
-      setLongPressTriggered(true); // prevent click after long press
+      setLongPressTriggered(true);
     }, 700);
   };
 

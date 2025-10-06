@@ -379,7 +379,7 @@
 // // import React, { useState } from "react";
 // // import { Link } from "react-router-dom";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IngredientsCount from "@/components/IngredientsCount";
 import IngredientsList from "@/components/IngredientsList";
@@ -397,13 +397,25 @@ const Generate = () => {
     { clearMessageOnChange: false }
   );
 
-  const { values, errors, setErrors, handleChange } = form;
+  const { values, errors, setErrors } = form;
   const { message, setMessage, loading, setLoading } = status;
+
   const [ingredientInput, setIngredientInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [recipeMessage, setRecipeMessage] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (!recipeMessage) return;
+    const t = setTimeout(() => setRecipeMessage(""), 4000);
+    return () => clearTimeout(t);
+  }, [recipeMessage]);
 
   const addIngredient = (e) => {
     e.preventDefault();
+
+    if (recipeMessage) setRecipeMessage("");
+
     if (!ingredientInput.trim()) return;
 
     form.setValues({
@@ -425,6 +437,8 @@ const Generate = () => {
   const handleRecipeGeneration = async (e) => {
     e.preventDefault();
 
+    if (recipeMessage) setRecipeMessage("");
+
     if (values.ingredients.length < 1) {
       setErrors({ ingredients: "Type at least one ingredient" });
       return;
@@ -441,35 +455,43 @@ const Generate = () => {
   };
 
   const refreshRecipe = async () => {
-    setLoading(true);
+    setIsRefreshing(true);
     setErrorMessage("");
+
     const prevRecipe = message;
-    setMessage("Refreshing...");
 
     try {
       const res = await authRequest(`${baseURL}/recipes/refresh`, "POST");
-      if (res.success) setMessage(res.data.message);
-      else {
+
+      if (res.success) {
+        setMessage(res.data.message);
+      } else {
         setMessage(prevRecipe);
         setErrorMessage(res.error || "Fialed to refresh recipe");
       }
     } catch {
       setMessage(prevRecipe);
-      setErrorMessage(res.error || "Unexpected error");
+      setErrorMessage("Unexpected error while refreshing recipe");
     } finally {
-      setLoading(false);
+      setIsRefreshing(false);
     }
   };
 
   const saveRecipe = async () => {
     setLoading(true);
+    setErrorMessage("");
+
     try {
-      const res = authRequest(`${baseURL}/recipes/save`, "POST", {
+      const res = await authRequest(`${baseURL}/recipes/save`, "POST", {
         message,
       });
-      if (res.succes) setMessage((await res).data.message);
-      else setErrorMessage(res.error || "Failed to save recipe");
-    } catch {
+      if (res.success) {
+        setRecipeMessage(res.data.message || "Recipe saved successfullyyyyy");
+        setMessage("");
+      } else {
+        setErrorMessage(res.error || "Failed to save recipe");
+      }
+    } catch (err) {
       setErrorMessage("Network error while saving recipe");
     } finally {
       setLoading(false);
@@ -479,7 +501,16 @@ const Generate = () => {
   if (message && typeof message === "object") {
     return (
       <div className="min-h-dvh w-full bg-gray-50 py-10 px-4 sm:px-6">
-        <div className="mx-auto max-w-3xll">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-4">
+            <button
+              onClick={() => setMessage("")}
+              className=" flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-md ring-1 ring-gray-200 transition-all hover:ring-indigo-300"
+            >
+              <span>←</span>
+            </button>
+          </div>
+
           <div className="mb-8 flex justify-between item-center">
             <h1 className="text-3xl font-bold text-gray-900">
               Generated recipe
@@ -492,21 +523,34 @@ const Generate = () => {
               💾 Save Recipe
             </button>
           </div>
+          <div className="mt-4 text-center">
+            {errorMessage ? (
+              <p className="text-red-600 font-medium animate-pulse">
+                {errorMessage}
+              </p>
+            ) : typeof message === "string" ? (
+              !errorMessage && (
+                <p className="text-green-600 font-medium animate-fadeIn">
+                  {message}
+                </p>
+              )
+            ) : null}
+          </div>
           <RecipeRenderer recipe={message} />
           <div className="flex justify-center gap-4 mt-8">
             <button
               onClick={refreshRecipe}
-              disabled={loading}
-              className="roundex-xl bg-emerald-700 px-6 py-3 text-white font-semibold hover:bg-emerald-800 transition"
+              disabled={isRefreshing}
+              className="rounded-xl bg-emerald-700 px-6 py-3 text-white font-semibold hover:bg-emerald-800 transition"
             >
-              {loading ? "Refreshing..." : "Refresh recipe"}
+              {isRefreshing ? "Refreshing..." : "Refresh recipe"}
             </button>
-            <Link
-              to="/favourites"
-              className="rounded-xl bg-purple-700 px-6 py-3 text-white font-semibold hover:bg-purple-800 transition"
-            >
-              💖 Favourites
-            </Link>
+            {/* <Link
+                to="/favourites"
+                className="rounded-xl bg-purple-700 px-6 py-3 text-white font-semibold hover:bg-purple-800 transition"
+              >
+                💖 Favourites
+              </Link> */}
           </div>
         </div>
       </div>
@@ -514,19 +558,20 @@ const Generate = () => {
   }
 
   return (
-    <div className="min-h-dvh w-full bg-gray-50 py-10 px-4 sm:px-6">
+    <div className="min-h-dvh w-full bg-gray-50 py-6 sm:py-10 px-3 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 mb-4">
-            Geberate your recipe
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mb-2 sm:mb-4">
+            Generate your recipe
           </h1>
-          <p className="text-lg text-gray-600 max-w-md mx-auto">
+          {/* <p className="text-base sm:text-lg text-gray-600 max-w-md mx-auto">
             Add ingredients you have and optionally specify a cuisine. We'll
             cook up a custom recipe just for you!
-          </p>
+          </p> */}
+          {!message && <IngredientsCount ingredients={values.ingredients} />}
         </div>
-        <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-gray-100">
-          <div className="p-8 md:p-10">
+        <div className="overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-xl ring-1 ring-gray-100">
+          <div className="p-5 sm:p-8 md:p-10">
             <form onSubmit={handleRecipeGeneration} className="space-y-8">
               <div className="space-y-2">
                 <label
@@ -549,22 +594,26 @@ const Generate = () => {
                     }}
                     placeholder="Type an ingredient and click 'Add Ingredient'"
                     rows={2}
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 shadow-sm hover:shadow-md resize-none"
+                    className="w-full mb-4 rounded-lg sm:rounded-xl border border-gray-200 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 shadow-sm hover:shadow-md resize-none"
                   />
                   {errors.ingredients && (
-                    <p className="flex justify-center mt-2 mb-4 text-red-600">
+                    <p className=" text-center mt-2 text-sm text-red-600">
                       {errors.ingredients}
                     </p>
                   )}
                   <button
                     onClick={addIngredient}
-                    className="w-full rounded-xl bg-gradient-to-r from-amber-600 to-amber-800 px-8 py-4 text-xl font-bold text-white shadow-lg hover:from-amber-700 hover:to-amber-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:transform-none flex items-center justify-center gap-2"
+                    className="w-full rounded-lg sm:rounded-xl bg-gradient-to-r from-amber-600 to-amber-800 px-6 sm:px-8 py-3 sm:py-4 text-lg sm:text-xl font-bold text-white shadow-lg hover:from-amber-700 hover:to-amber-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:transform-none flex items-center justify-center gap-2"
                   >
                     ➕ Add Ingredient
                   </button>
-                  {!message && (
-                    <IngredientsCount ingredients={values.ingredients} />
-                  )}
+                  {/* <Link
+                    to="/favourites"
+                    className="rounded-xl bg-purple-700 px-6 py-3 text-white font-semibold hover:bg-purple-800 transition"
+                  >
+                    💖 Favourites
+                  </Link> */}
+
                   {values.ingredients.length > 0 && (
                     <IngredientsList
                       ingredients={values.ingredients}
@@ -572,47 +621,16 @@ const Generate = () => {
                       removeIngredient={removeIngredient}
                     />
                   )}
+                  {recipeMessage && (
+                    <div className="text-sm sm:text-base text-center text-green-600 w-full mt-4 font-medium animate-fadeIn">
+                      {recipeMessage}
+                    </div>
+                  )}
                 </div>
               </div>
-              {/* <div>
-                <label
-                  htmlFor="cuisine"
-                  className="block text-sm font-bold text-gray-900"
-                >
-                  Cuisine (optional)
-                </label>
-                <input
-                  type="text"
-                  id="cuisine"
-                  name="cuisine"
-                  value={values.cuisine || ""}
-                  onChange={handleChange}
-                  placeholder="e.g., Italian, Indian, Mexican..."
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 shadow-sm hover:shadow-md"
-                />
-              </div> */}
-
-              {/* Generate Button */}
-              {/* <button
-                type="submit"
-                disabled={loading || values.ingredients.length < 4}
-                className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-4 text-xl font-bold text-white shadow-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:transform-none flex items-center justify-center gap-2"
-              >
-                {loading ? (
-                  <>
-                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                    Generating your recipe...
-                  </>
-                ) : (
-                  "✨ Generate Recipe"
-                )}
-              </button> */}
             </form>
           </div>
         </div>
-        {errorMessage && (
-          <p className="text-center text-red-600 mt-6">{errorMessage}</p>
-        )}
       </div>
     </div>
   );
