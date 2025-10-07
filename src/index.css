@@ -5,7 +5,7 @@ body {
 }
 
 .btn {
-  @apply border-none py-4 w-full rounded-4xl border-gray-400 text-white  font-bold;
+  @apply border-none py-4 w-full rounded-4xl border-gray-400  font-bold;
 }
 @keyframes fade-in-slide {
   from {

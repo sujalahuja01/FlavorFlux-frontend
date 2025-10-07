@@ -5,38 +5,36 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="relative w-full flex flex-col justify-end items-center text-white"
-      style={{ height: "100dvh" }}
-    >
-      <div className="absolute inset-0 bg-cover bg-center bg-[url('/images/bg-1.png')]"></div>
-      <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-      <div className="absolute z-10 text-white top-16  flex justify-center items-center">
-        <span>
-          <i className="fa-solid fa-star "></i>
-        </span>
-        <h1 className="text-xl font-semibold ml-2">
-          Your hunger, our algorithm
-        </h1>
-      </div>
-      <div className="mb-20 z-10 text-center h-69 ">
-        <div className="w-62  mb-10 flex flex-col justify-between">
-          <h1 className=" text-6xl mb-6 ">Let's Cook</h1>
-          <p>Recipes that slap, no cap 🔥</p>
+    <div className="flex flex-col items-center justify-center min-h-screen text-center bg-gray-50 px-4">
+      <h1 className="text-3xl sm:text-5xl font-semibold text-gray-900 mb-3">
+        Simple ingredients, endless possibilities.
+      </h1>
+
+      <p className="text-gray-600 text-lg mb-8">
+        From everyday ingredients to extraordinary meals.
+      </p>
+
+      <button
+        onClick={() => navigate("/login")}
+        className="bg-[#FFE083] hover:bg-[#ffd24d] text-gray-800 font-medium py-3 px-8 rounded-xl transition duration-200"
+      >
+        <div className="flex justify-center">
+          <span className="flex items-center gap-4">
+            <span className="font-bold text-lg">Let’s cook</span>
+            <i className="fa-solid fa-arrow-right mt-0.5  "></i>
+          </span>
         </div>
-        <button
-          className="bg-[#E23E3E] w-52 h-14 rounded-xl"
-          onClick={() => navigate("/login")}
-        >
-          <div className="flex justify-center">
-            <span className="flex items-center gap-4">
-              <span className="font-bold text-lg">Start cooking</span>
-              <i className="fa-solid fa-arrow-right mt-0.5  "></i>
-            </span>
-          </div>
-        </button>
+      </button>
+
+      <div className="mt-10">
+        <img
+          src="/images/image-removebg-preview.png"
+          alt="Chef Illustration"
+          className="w-72 sm:w-96 mx-auto object-contain"
+        />
       </div>
     </div>
   );
 };
+
 export default Home;
