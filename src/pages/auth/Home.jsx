@@ -16,7 +16,7 @@ const Home = () => {
 
       <button
         onClick={() => navigate("/login")}
-        className="bg-[#FFE083] hover:bg-[#ffd24d] text-gray-800 font-medium py-3 px-8 rounded-xl transition duration-200"
+        className="mt-2 px-3 h-11 border-2 border-gray-800 rounded-md bg-[#FFE083] hover:bg-[#ffd24d] shadow-[4px_4px_0_0_#323232] font-semibold text-gray-800 duration-200"
       >
         <div className="flex justify-center">
           <span className="flex items-center gap-4">

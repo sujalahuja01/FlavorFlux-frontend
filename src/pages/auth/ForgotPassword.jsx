@@ -33,17 +33,7 @@ const ForgotPassword = () => {
       onSubmit={handleForgotPass}
       title="Forgot Password"
       message={message}
-      subTitle={
-        <div className="text-center">
-          <p>
-            Enter your email and we'll send you a link to get back into your
-            account
-          </p>
-          <p className="mt-2 font-medium text-gray-600">
-            ⚠️ Don’t forget to check the Spam folder!
-          </p>
-        </div>
-      }
+      subTitle=" Enter your email and we'll send you a link to get back into your account"
     >
       <AuthInputLayout
         type="email"
@@ -56,21 +46,24 @@ const ForgotPassword = () => {
       {message && (
         <div className="text-sm text-center text-red-600 w-full">{message}</div>
       )}
-
       <button
-        className="btn bg-[#1FCC79] mt-6"
+        className="w-full h-11 border-2 border-gray-800 rounded-md shadow-[4px_4px_0_0_#323232] font-semibold text-gray-800 bg-[#FFE083] hover:bg-[#ffd24d] cursor-pointer duration-200"
         type="submit"
         disabled={loading}
       >
         {loading ? "Sending reset link..." : "Send Reset Email"}
       </button>
       <p className="flex justify-center text-gray-500">OR</p>
-
       <Link to="/signup" className="hover:underline ">
         Create new account
       </Link>
 
-      <Link to="/login" className="text-center btn bg-[#FF5842] mt-6">
+      <Link
+        to="/login"
+        className="pt-2 text-center w-full h-11 border-2 border-gray-800 rounded-md
+      shadow-[4px_4px_0_0_#323232] font-semibold text-gray-800 bg-[#FF5842]
+      cursor-pointer duration-200"
+      >
         Back to login
       </Link>
     </AuthFormLayout>

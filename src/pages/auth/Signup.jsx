@@ -54,6 +54,7 @@ const Signup = () => {
         placeholder="Username"
         onChange={handleChange}
         error={errors.username}
+        icon="fa-envelope"
       />
 
       <AuthInputLayout
@@ -63,6 +64,7 @@ const Signup = () => {
         placeholder="Email"
         onChange={handleChange}
         error={errors.email}
+        icon="fa-envelope"
       />
 
       <AuthPasswordInputLayout
@@ -75,15 +77,20 @@ const Signup = () => {
       />
 
       <button
-        className="btn mt-3 bg-[#1FCC79]"
+        className="w-full h-11 border-2 border-gray-800 rounded-md shadow-[4px_4px_0_0_#323232] font-semibold text-gray-800 bg-[#FFE083] hover:bg-[#ffd24d] cursor-pointer duration-200"
         type="submit"
         disabled={loading}
       >
         {loading ? "Signing Up..." : "Signup"}
       </button>
-      <p className="flex justify-center text-gray-500 ">Or continue with </p>
+      <p className="flex justify-center text-gray-500 mt-4 ">
+        Or continue with{" "}
+      </p>
 
-      <button onClick={googleAuth} className="btn mb-4 bg-[#FF5842]">
+      <button
+        onClick={googleAuth}
+        className="w-full h-11 border-2 border-gray-800 rounded-md bg-[#FF5842] text-white shadow-[4px_4px_0_0_#323232] font-semibold  flex items-center justify-center gap-2 cursor-pointer"
+      >
         <span className="mr-2">
           <i className="fa-brands fa-google"></i>
         </span>

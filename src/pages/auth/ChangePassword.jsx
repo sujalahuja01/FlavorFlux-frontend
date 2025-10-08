@@ -81,7 +81,7 @@ const ChangePassword = () => {
       )}
 
       <button
-        className="btn mt-4 bg-[#FF5842]"
+        className="w-full h-11 border-2 border-gray-800 rounded-md shadow-[4px_4px_0_0_#323232] font-semibold text-gray-800 bg-[#FFE083] hover:bg-[#ffd24d] cursor-pointer duration-200"
         type="submit"
         disabled={loading}
       >
